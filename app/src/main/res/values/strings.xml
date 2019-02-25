@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">JobProfile</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="name">Amit Vora</string>
+    <string name="designation">Senior Software Designer</string>
+    <string name="location">Malabar Hill</string>
+    <string name="qualification">B Tech</string>
+    <string name="work_experience">10 years</string>
+    <string name="expected_ctc">10–12 Lac</string>
+    <string name="currently_working">McDermott Price</string>
+    <string name="skill_set">Skill set</string>
+    <string name="work_function">Work function</string>
+    <string name="industry">Industry</string>
+    <string name="confirm">Confirm</string>
+    <string name="edit_profile">Edit Profile</string>
+
+    <string name="action_maps">Map</string>
+    <string name="action_chat">Chat</string>
+
+
+
+</resources>
