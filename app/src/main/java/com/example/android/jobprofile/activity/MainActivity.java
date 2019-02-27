@@ -24,12 +24,15 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.android.jobprofile.R;
+import com.example.android.jobprofile.model.Designation;
 import com.example.android.jobprofile.model.Employee;
+import com.example.android.jobprofile.model.HighestQualification;
 import com.example.android.jobprofile.model.Skill;
 import com.example.android.jobprofile.rest.ApiClient;
 import com.example.android.jobprofile.rest.ApiInterface;
 
 import java.io.DataOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -58,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Linking Views with their Id's
         findViewsById();
 
         //ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
@@ -66,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Call<Employee> call = apiService.getEmployeeDetails(74);
 
+        //Api Call using Retrofit
         Call<Employee> call = ApiClient
                 .getInstance()
                 .getApi()
@@ -80,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "employee designation: "+ employee.getDesignation());
 
                 Log.d(TAG, "onResponse: " + response.toString());
+
 
                 /*String empName = response.body().getName();
                 Log.d(TAG, " Employee Name: " + empName);
@@ -111,10 +117,62 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //SetValues is a method to set values on a different Views.
+        setValues();
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+    }
+
+    public void setValues() {
+
+        //Hardcoded values
+        employee.setName("Nitin Kumar");
+
+        Designation designation = new Designation();
+        designation.setName("Fresher");
+        employee.setDesignation(designation);
+
+        employee.setImageUrl("https://storage.googleapis.com/icif-cs/hunt/user/image20190116063258.jpeg");
+        employee.setLocation("Malad West, Mumbai");
+
+        HighestQualification highestQualification = new HighestQualification();
+        highestQualification.setName("B.E. / B.Tech");
+        employee.setHighestQualification(highestQualification);
+
+        employee.setExperience("3 Years");
+        employee.setExpectedCtc("7 - 12 LPA");
+
+        Skill skill = new Skill();
+        List<Skill> skills = new ArrayList<>();
+        skill.setName("Android SDK");
+        skills.add(skill);
+
+        employee.setSkills(skills);
+
+
+
+        //Setting hardcoded values to Views
+
+        tvName.setText(employee.getName());
+        tvDesignation.setText(employee.getDesignation().getName());
+        tvLocation.setText(employee.getLocation());
+        tvQualificationValue.setText(employee.getHighestQualification().getName());
+        tvWorkExperienceValue.setText(employee.getExperience());
+        tvExpectedCtcValue.setText(employee.getExpectedCtc());
+        tvDesignationValue.setText(employee.getDesignation().getName());
+        tvCurrentlyWorkingValue.setText("BinaryVeda Solutions Pvt. Ltd.");
 
         //Use of Glide to fetch an image from a URL and set it into specific placeholder
         Glide.with(this)
-                .load("https://storage.googleapis.com/icif-cs/hunt/user/image20190116063258.jpeg")
+                .load(employee.getImageUrl())
                 .apply(RequestOptions.circleCropTransform())
                 .into(ivProfilePic);
 
@@ -140,16 +198,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
     }
 
     public void findViewsById() {
